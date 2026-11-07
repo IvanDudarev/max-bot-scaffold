@@ -62,6 +62,9 @@ BOT_TOKEN=ваш_токен
 # Webhook (обязательно для production)
 BOT_WEBHOOK_SECRET=случайная_строка
 DOMAIN=https://bot.example.com
+WEBHOOK_PORT=3001
+
+# Express (Mini App / health-check)
 PORT=3000
 
 # PostgreSQL
@@ -133,7 +136,7 @@ node seeds/seed.js
 MAX требует HTTPS. Бот запускает webhook-сервер на порту `3001`
 (внутренний), а снаружи должен быть HTTPS-прокси.
 
-**Вариант А: Nginx + Let's Encrypt (рекомендуется)**
+**Nginx + Let's Encrypt**
 
 ```nginx
 server {
@@ -156,15 +159,6 @@ server {
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
   }
-}
-```
-
-**Вариант Б: Caddy**
-
-```
-bot.example.com {
-  reverse_proxy /webhook 127.0.0.1:3001
-  reverse_proxy 127.0.0.1:3000
 }
 ```
 
@@ -271,7 +265,7 @@ pm2 status                                    # статус всех проце
 **Бот не отвечает на `/start`** — проверьте:
 - `pm2 logs <имя_проекта>` (ошибки).
 - Что `DOMAIN` доступен извне (`curl https://bot.example.com/webhook`).
-- Что Nginx/Caddy проксирует `/webhook` на порт `3001`.
+- Что Nginx проксирует `/webhook` на порт `3001`.
 - Что `BOT_WEBHOOK_SECRET` в `.env` совпадает с тем, что MAX присылает
   (если секрет неверный, MAX может отклонять запросы).
 
