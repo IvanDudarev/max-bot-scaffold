@@ -123,10 +123,11 @@ location / {
 
 ```text
 .
-├── certs/                  # Сертификаты (Минцифры, Let's Encrypt)
+├── certs/                  # Сертификаты Минцифры (bundle.crt и др.)
 ├── logs/                   # Логи PM2 (error.log, out.log)
-├── migrations/             # SQL-миграции
+├── migrations/             # SQL-миграции (01_create_sessions.sql)
 ├── scripts/                # Скрипты (migrate.js)
+├── seeds/                  # Начальные данные (seed.js)
 ├── src/
 │   ├── index.js            # Точка входа (запуск бота и Express)
 │   ├── config.js           # Загрузка .env и проверка переменных
@@ -134,14 +135,19 @@ location / {
 │   │   ├── pool.js         # Пул подключений к PostgreSQL
 │   │   └── session-store.js# Хранилище сессий в БД
 │   ├── bot/
-│   │   ├── index.js        # Инициализация бота и Webhook
-│   │   ├── commands/       # Обработчики команд (/start, /help)
-│   │   ├── actions/        # Обработчики кнопок (callback)
-│   │   └── dialogs/        # Пошаговые сценарии (машины состояний)
-│   └── mini-app/           # Express-маршруты для Mini App
+│   │   ├── index.js        # Создание бота, сессии, запуск Webhook
+│   │   ├── commands/       # Команды (index.js, start.js, help.js)
+│   │   ├── actions/        # Кнопки (index.js, example.js)
+│   │   └── dialogs/        # Диалоги (index.js, example.js)
+│   ├── mini-app/           # Express-заглушка (routes.js)
+│   ├── services/           # (пусто) Бизнес-логика, интеграции
+│   └── utils/              # (пусто) Вспомогательные функции
+├── .env                    # Переменные окружения
+├── .gitignore
 ├── ecosystem.config.cjs    # Конфиг PM2
 ├── package.json
-└── SETUP.md                # Расширенная инструкция по настройке
+├── README.md
+└── SETUP.md                # Инструкция по настройке БД и сервера
 ```
 
 ## 🛠 Как добавить новое
