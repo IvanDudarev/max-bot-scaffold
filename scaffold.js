@@ -59,10 +59,10 @@ BOT_TOKEN=
 # Webhook
 BOT_WEBHOOK_SECRET=
 DOMAIN=
-WEBHOOK_PORT=3002
+WEBHOOK_PORT=3001
 
 # Express (Mini App / health-check)
-PORT=3003
+PORT=3000
 
 # PostgreSQL
 PGHOST=localhost
@@ -266,13 +266,13 @@ if (missing.length > 0) {
 
 const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
-  port: Number(process.env.PORT) || 3003,
+  port: Number(process.env.PORT) || 3000,
   domain: process.env.DOMAIN,
 
   bot: {
     token: process.env.BOT_TOKEN,
     secret: process.env.BOT_WEBHOOK_SECRET,
-    webhookPort: Number(process.env.WEBHOOK_PORT),
+    webhookPort: Number(process.env.WEBHOOK_PORT) || 3001,
     webhookPath: '/webhook',
   },
 
